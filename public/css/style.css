@@ -1,0 +1,78 @@
+@font-face {
+    font-family: ubuntu;
+    src: url(Ubuntu-Regular.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: ubuntu;
+    box-sizing: border-box;
+}
+
+.container {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+header {
+    height: 60px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    text-decoration: none;
+    color: rgb(62, 62, 62);
+}
+
+nav a {
+    padding: 5px 0;
+    margin-left:10px ;
+}
+
+nav a:hover {
+    border-bottom: 2px solid black;
+}
+
+.access {
+    width: 450px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 60px auto 0;
+}
+
+.access h1 {
+    text-align: center;
+}
+
+.access input {
+    font-size: 18px;
+    padding: 4px;
+}
+
+.access input[type="submit"]{
+    background-color: #383838;
+    border: 1px solid #383838;
+    border-radius: 5px;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+.access input[type="submit"]:hover{
+    background-color: #5555;
+}
+
+.access a {
+    text-decoration: none;
+    font-weight: bolder;
+    color: rgb(55, 41, 145);
+}
+
+.access a:hover {
+    text-decoration: 2px solid #383838 ;
+}
