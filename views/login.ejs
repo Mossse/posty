@@ -2,9 +2,13 @@
 
 <form class="access" action="/login" method="post">
     <h1>Log In</h1>
-    <input type="email" name="email" id="" placeholder="Emaill Address">
-    <input type="password" name="password" id="" placeholder="Passoword">
-    <input type="submit" value="Create Account">
+    <% if(error) {%>
+        <p class="error"> <%= message %></p>
+        <% } %>
+
+    <input type="email" name="email" id="" placeholder="Emaill Address" required minlength="8" value="<%= user.email%>">
+    <input type="password" name="password" id="" placeholder="Passoword" required minlength="8" value="<%= user.password%>">
+    <input type="submit" value="Log In">
     <p>Don't have an account? <a href="/signup">signup</a></p>
     </form>
 
