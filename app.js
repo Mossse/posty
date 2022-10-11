@@ -2,6 +2,7 @@ import { render } from 'ejs'
 import express from 'express'
 import mysql from 'mysql'
 import bcrypt from 'bcrypt'
+import session from 'express-session'
 
 const app = express()
 const connection = mysql.createConnection({
@@ -14,6 +15,23 @@ const connection = mysql.createConnection({
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:false}))
 app.use(express.static('public'))
+
+// preparing to use sessions 
+app.use(session({
+    secret: 'pixel',
+    resave: true,
+    saveUninitialized: false
+}))
+
+// constantly check if user logged in
+app.use((req, res, next)=> {
+    if (req.session.userID === undefined) {
+        res.locals.isLoggedIn = false
+    } else {
+        res.locals.isLoggedIn = true
+    }
+    next()
+})
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -43,7 +61,8 @@ app.post('/login', (req, res) => {
                 // autheticate 
                 bcrypt.compare(user.password, results[0].password, (error, matches) => {
                     if (matches) {
-                        res.send('Login Successful')
+                        req.session.userID = results[0].u_id
+                        res.redirect('/dashboard')
                     } else {
                         let message = 'Incorrect Password'
                         res.render('login', {user:user, error:true, message:message})
@@ -117,6 +136,40 @@ app.post('/signup', (req, res) => {
         let message = 'Passwor Mismatch'
         res.render('signup', {user, error:true, message:message})
     }
+})
+
+// logout functionality 
+
+app.get('/logout', (req, res) => {
+    // kill session
+    req.session.destroy(() => {
+        res.redirect('/')
+    })
+})
+
+// dashboard 
+app.get('/dashboard', (req, res) => {
+    if (res.locals.isLoggedIn) {
+        res.render('dashboard')
+    } else {
+        res.redirect('/login')
+    }
+  })
+
+// account
+app.get('/account', (req, res) =>{
+    if (res.locals.isLoggedIn) {
+        let sql = 'SELECT * FROM profile WHERE u_id = ?'
+        connection.query(
+            sql, [req.session.userID], (error, results) => {
+                res.render('account', {account:results[0]})
+            }
+        )
+       
+    } else {
+        res.redirect('/login')
+    }
+   
 })
 
 const PORT = process.env.PORT || 3000
