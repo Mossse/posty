@@ -10,6 +10,14 @@
     box-sizing: border-box;
 }
 
+.error {
+    background-color: #ff2525;
+    color: #fff;
+    text-align: center;
+    padding: 4px;
+    border-radius: 5px;
+}
+
 .container {
     padding-left: 150px;
     padding-right: 150px;
