@@ -29,11 +29,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 header a {
     text-decoration: none;
     color: rgb(62, 62, 62);
+    margin-bottom: 10px;
 }
 
 nav a {
@@ -83,4 +85,72 @@ nav a:hover {
 
 .access a:hover {
     text-decoration: 2px solid #383838 ;
+}
+
+#account #profile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#account #profile * {
+    width: max-content;
+    margin: 0 auto;
+}
+
+#account #profile div {
+    width: 200px;
+    height: 200px;
+}
+
+#account #profile img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+#account #profile p {
+    font-size: 19px;
+}
+
+#account #profile a {
+    background-color: aquamarine;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#edit-account form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#edit-account form * {
+    width: max-content;
+}
+
+#edit-account form > input {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+#edit-account div * {
+    font-size: 16px;
+    color: #fff;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+#edit-account div a {
+    background-color: #ff2525;
+    text-decoration: none;
+    border: 1px solid #ff2525;
+    border-radius: 5px;
+}
+
+#edit-account div input {
+    background-color: aquamarine;
+    border: 1px solid aquamarine;
+    border-radius: 5px;
 }
