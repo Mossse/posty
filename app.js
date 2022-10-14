@@ -153,7 +153,14 @@ app.get('/logout', (req, res) => {
 // dashboard 
 app.get('/dashboard', (req, res) => {
     if (res.locals.isLoggedIn) {
-        res.render('dashboard')
+
+        let sql = 'SELECT * FROM post JOIN profile ON u_id = u_id_fk ORDER BY date_created DESC'
+        connection.query (
+            sql, (error, results) => {
+                res.render('dashboard', {posts:results})
+            }
+        )
+
     } else {
         res.redirect('/login')
     }
@@ -233,6 +240,18 @@ app.post('/account/edit/:id', upload.single('picture'), (req, res) => {
         )
     }
      
+})
+
+// post creation 
+app.post('/create-post', (req, res) => {
+    let sql = 'INSERT INTO post (content, u_id_fk) VALUES (?, ?)'
+    connection.query(
+        sql,
+        [req.body.content, req.session.userID],
+        (error, results) => {
+            res.redirect('/dashboard')
+        }
+    )
 })
 
 const PORT = process.env.PORT || 3000
